@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package com.connectroutes.payment;
+
+option go_package="proto";
+
+enum PaymentMethod{
+    cash = 0;
+    card = 1;
+}
+
+enum CardType{
+    visa = 0;
+    mastercard = 1;
+}
+
+message PaymentOption{
+    PaymentMethod method = 1;
+    string id = 2;
+    CardType cardType = 3;
+    string cardLast4 = 4;
+    string bin = 5;
+    string expiryMonth = 6;
+    string expiryYear = 7;
+    int64 lastUsed = 8;
+}
+
+message GetPaymentOptionsRequest{
+
+}
+
+message GetPaymentOptionsResponse{
+    repeated PaymentOption options = 1;
+}
+
+
+message AddCardRequest{
+    string cardNo = 1;
+    string cardExpiryMonth = 2;
+    string cardExpiryYear = 3;
+    string cardCvv = 4;
+    string cardPin = 5;
+}
+
+message AddCardResponse{
+    string message = 1;
+    string action = 2;
+    string action_url = 3;
+    string reference = 4;
+    PaymentOption card = 5;
+}
+
+message SubmitCardAuthorizationRequest{
+    string action = 1;
+    string value = 2;
+    string reference = 3;
+}
+
+
+message AddCardByReferenceRequest{
+    string reference = 1;
+}
+
+service PaymentService{
+    rpc GetPaymentOptions(GetPaymentOptionsRequest) returns (GetPaymentOptionsResponse){};
+    rpc AddCard(AddCardRequest) returns (AddCardResponse){};
+    rpc SubmitCardAuthorization(SubmitCardAuthorizationRequest) returns (AddCardResponse){};
+    rpc AddCardByReference(AddCardByReferenceRequest) returns (AddCardResponse){};
+}

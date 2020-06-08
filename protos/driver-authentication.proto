@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.connectroutes.authentication;
+
+option go_package="proto";
+
+
+message GetVehicleModelsOrMakesRequest{
+    string make = 1;
+}
+
+message GetVehicleModelsOrMakesResponse{
+    repeated string vehicle_names = 1;
+}
+
+service DriverRegistrationService{
+    rpc GetVehicleModelsOrMakes(GetVehicleModelsOrMakesRequest) returns (GetVehicleModelsOrMakesResponse){};
+}
