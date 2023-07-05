@@ -1,6 +1,6 @@
 Django==2.2
 googleapis-common-protos==1.51.0
-grpcio==1.27.2
+grpcio==1.53.0
 grpcio-tools==1.27.2
 protobuf==3.11.3
 pytz==2019.3
